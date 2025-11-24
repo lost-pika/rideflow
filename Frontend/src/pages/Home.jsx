@@ -40,6 +40,22 @@ const Home = () => {
   const { socket } = useContext(SocketContext);
   const { user } = useContext(UserDataContext);
 
+  const [captainLocation, setCaptainLocation] = useState(null);
+
+  useEffect(() => {
+    const handleCaptainLocationUpdate = (data) => {
+      console.log("Captain location update:", data.location);
+      setCaptainLocation(data.location);
+      // TODO: Update your map marker with captain's real-time position
+    };
+
+    socket.on("captain-location-update", handleCaptainLocationUpdate);
+
+    return () => {
+      socket.off("captain-location-update", handleCaptainLocationUpdate);
+    };
+  }, [socket]);
+
   useEffect(() => {
     socket.emit("join", { userType: "user", userId: user._id });
   }, [user]);
@@ -222,7 +238,7 @@ const Home = () => {
         alt=""
       />
       {!panelOpen && (
-        <div className="h-[70vh] w-full">
+        <div className="h-[45vh] w-full">
           <LiveTracking />
         </div>
       )}

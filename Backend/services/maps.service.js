@@ -23,6 +23,43 @@ module.exports.getCoordinates = async (address) => {
   }
 };
 
+// services/maps.service.js
+// ---- add this function near the bottom or next to other exports ----
+
+// A compatibility wrapper so any code calling getAddressCoordinate() works.
+// This tries several common internal functions and returns { lat, lng }.
+module.exports.getAddressCoordinate = async function(address) {
+  if (!address) throw new Error('Address is required');
+
+  // Prefer an existing function named getCoordinates (adjust names if your file uses different)
+  if (typeof module.exports.getCoordinates === 'function') {
+    const coords = await module.exports.getCoordinates(address);
+    // normalize keys
+    const lat = coords?.lat ?? coords?.latitude ?? coords?.ltd;
+    const lng = coords?.lng ?? coords?.longitude;
+    if (typeof lat === 'undefined' || typeof lng === 'undefined') {
+      throw new Error('getAddressCoordinate: coordinates not found');
+    }
+    return { lat, lng };
+  }
+
+  // If your service exposes a different function name (e.g. lookupAddress, geocode, etc.),
+  // add fallbacks here. Example:
+  if (typeof module.exports.geocodeAddress === 'function') {
+    const coords = await module.exports.geocodeAddress(address);
+    const lat = coords?.lat ?? coords?.latitude ?? coords?.ltd;
+    const lng = coords?.lng ?? coords?.longitude;
+    if (typeof lat === 'undefined' || typeof lng === 'undefined') {
+      throw new Error('getAddressCoordinate: coordinates not found (geocodeAddress)');
+    }
+    return { lat, lng };
+  }
+
+  // Last resort — throw a clear error so logs are actionable.
+  throw new Error('getAddressCoordinate: no underlying geocode function found');
+};
+
+
 module.exports.getDistanceTime = async (origin, destination) => {
   try {
     if (!origin || !destination) {
@@ -123,16 +160,16 @@ module.exports.getAutoCompleteSuggestions = async (input) => {
   }
 };
 
-module.exports.getCaptainsInTheRadius = async (ltd, lng, radius) => {
-  // radius in km
-  const captains = await captainModel.find({
-    location: {
-      $geoWithin: {
-        $centerSphere: [[ltd, lng], radius / 6371],
-      },
-    },
-  });
-  return captains;
+module.exports.getCaptainsInTheRadius = async (lat, lng, radius) => {
+    // MongoDB expects [longitude, latitude] order for geospatial queries
+    const captains = await captainModel.find({
+        location: {
+            $geoWithin: {
+                $centerSphere: [[lng, lat], radius / 6371],  // ✅ Correct order
+            },
+        },
+    });
+    return captains;
 };
 
 

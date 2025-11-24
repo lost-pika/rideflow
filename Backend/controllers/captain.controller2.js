@@ -13,10 +13,9 @@ module.exports.registerCaptain = async (req, res, next) => {
 
    const isCaptainAlreadyExist = await captainModel.findOne({email});
 
-  if (isCaptainAlreadyExist) {
-  return res.status(400).json({ message: "Captain with this email already exists" });
-}
-
+   if(isCaptainAlreadyExist) {
+    res .status(400).json({message: "Captain with this email already exists"});
+   }
 
    const hashPassword = await captainModel.hashPassword(password);
 
@@ -100,27 +99,3 @@ module.exports.logoutCaptain = async (req, res, next) => {
 
     res.status(200).json({ message: "Logged out successfully" });
 }
-
-// In controllers/captain.controller.js, add:
-module.exports.updateLocation = async (req, res, next) => {
-    const { location } = req.body;
-    const captainId = req.captain._id;
-    
-    if (!location || !location.lat || !location.lng) {
-        return res.status(400).json({ message: "Invalid location data" });
-    }
-    
-    try {
-        await captainModel.findByIdAndUpdate(captainId, {
-            location: {
-                lat: location.lat,
-                lng: location.lng
-            }
-        });
-        
-        res.status(200).json({ message: "Location updated successfully" });
-    } catch (error) {
-        console.error('Error updating captain location:', error);
-        res.status(500).json({ message: error.message });
-    }
-};

@@ -23,4 +23,9 @@ router.get('/profile', authMiddleware.authCaptain, captainController.getCaptainP
 
 router.get('/logout', authMiddleware.authCaptain, captainController.logoutCaptain);
 
+router.post('/update-location', 
+    authMiddleware.authCaptain,
+    captainController.updateLocation
+);
+
 module.exports = router
