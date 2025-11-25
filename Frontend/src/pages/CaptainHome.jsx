@@ -233,25 +233,7 @@ const CaptainHome = () => {
         />
       </div>
 
-      {/* Debug Panel - Remove in production */}
-      {/* <div className="fixed bottom-4 right-4 bg-black bg-opacity-90 text-white p-3 rounded-lg text-xs max-w-xs z-50">
-        <div className="font-bold mb-2">🔧 Debug Info</div>
-        <div className="space-y-1">
-          <div>
-            Socket: {socket?.connected ? "✅ Connected" : "❌ Disconnected"}
-          </div>
-          <div>Socket ID: {socket?.id || "N/A"}</div>
-          <div>
-            Captain:{" "}
-            {captain?._id
-              ? `✅ ${captain._id.slice(0, 8)}...`
-              : "❌ Not loaded"}
-          </div>
-          <div>
-            Listening: {socket?._callbacks?.$new_ride ? "✅ Yes" : "❌ No"}
-          </div>
-        </div>
-      </div> */}
+      
     </div>
   );
 };
