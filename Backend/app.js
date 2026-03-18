@@ -15,21 +15,17 @@ const app = express();
 
 // middleware
 
+
 const allowedOrigins = [
-  process.env.FRONTEND_ORIGIN,               // e.g. 'http://localhost:5173' in dev or blank
-  'https://rideflow-psi.vercel.app',         // your Vercel frontend
-  'https://your-other-preview.vercel.app'    // optional - add preview domains if needed
-].filter(Boolean); // removes undefined entries
+  'http://localhost:5173',
+  'https://rideflow-psi.vercel.app'
+];
 
 app.use(cors({
-  origin: function(origin, callback) {
-    // allow requests with no origin (like curl, mobile apps)
-    if (!origin) return callback(null, true);
-    if (allowedOrigins.indexOf(origin) !== -1) {
-      return callback(null, true);
-    }
-    return callback(new Error('CORS policy: This origin is not allowed: ' + origin));
-  },
+  origin: [
+    'http://localhost:5173',
+    'https://rideflow-psi.vercel.app'
+  ],
   credentials: true
 }));
 app.use(express.json());
