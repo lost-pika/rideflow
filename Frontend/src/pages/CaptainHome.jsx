@@ -184,11 +184,11 @@ const CaptainHome = () => {
   return (
     <div className="h-screen">
       {/* Header */}
-      <div className="fixed p-6 top-0 flex items-center justify-between w-screen">
+      <div className="fixed p-6 top-0 flex items-center justify-between w-screen z-10">
         <img
-          className="w-16"
-          src="https://upload.wikimedia.org/wikipedia/commons/c/cc/Uber_logo_2018.png"
-          alt="Uber"
+          className="w-28"
+          src="/rideflow-logo.svg"
+          alt="RideFlow"
         />
         <Link
           to="/captain-logout"

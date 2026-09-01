@@ -38,7 +38,7 @@ const Captainlogin = () => {
   return (
     <div className='p-7 h-screen flex flex-col justify-between'>
       <div>
-        <img className='w-20 mb-3' src="https://www.svgrepo.com/show/505031/uber-driver.svg" alt="" />
+        <img className='w-32 mb-3' src="/rideflow-captain-logo.svg" alt="RideFlow Captain" />
 
         <form onSubmit={(e) => {
           submitHandler(e)

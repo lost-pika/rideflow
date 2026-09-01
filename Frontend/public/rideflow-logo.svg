@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 175 44" width="175" height="44">
+  <!-- Icon Mark -->
+  <g transform="translate(2, 2)">
+    <rect width="40" height="40" rx="10" fill="#000000"/>
+    <!-- Route flow stream -->
+    <path d="M 11 30 C 11 20, 20 22, 22 17 C 24 12, 29 13, 29 10" fill="none" stroke="#ffffff" stroke-width="3" stroke-linecap="round"/>
+    <!-- Arrowhead at destination -->
+    <path d="M 23 10 L 29 10 L 29 16" fill="none" stroke="#ffffff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+    <!-- Origin pickup dot -->
+    <circle cx="11" cy="30" r="2.5" fill="#10B981"/>
+    <!-- Flow accent line -->
+    <path d="M 14 25 C 16 19, 22 20, 24 14" fill="none" stroke="#10B981" stroke-width="1.8" stroke-linecap="round" opacity="0.9"/>
+  </g>
+  <!-- Wordmark -->
+  <text x="50" y="29" font-family="-apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', Roboto, sans-serif" font-size="24" font-weight="900" letter-spacing="-0.8">
+    <tspan fill="#000000">Ride</tspan><tspan fill="#000000">Flow</tspan>
+  </text>
+  <!-- Accent dot -->
+  <circle cx="158" cy="27" r="3" fill="#10B981"/>
+</svg>

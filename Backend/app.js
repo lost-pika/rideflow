@@ -40,23 +40,28 @@ app.use('/rides', rideRoutes);
 
 app.get('/', (req, res) => res.send('Hello World'));
 
+// Global error handling middleware
+app.use((err, req, res, next) => {
+  console.error('Server error:', err);
+  res.status(err.status || 500).json({
+    message: err.message || 'Internal Server Error'
+  });
+});
+
 // Startup: ensure DB connected and index exists
 const startApp = async () => {
   try {
     await connectToDb();
-    console.log('Connected to DB');
 
     // ensure geospatial index exists (safe to call repeatedly)
     try {
       await captainModel.collection.createIndex({ location: '2dsphere' });
       console.log('Geospatial index created/verified on captains.location');
     } catch (idxErr) {
-      console.error('Failed to create geospatial index:', idxErr);
+      console.error('Failed to create geospatial index:', idxErr.message);
     }
   } catch (err) {
-    console.error('Failed to connect to DB:', err);
-    // Depending on your preference, you can exit the process here:
-    // process.exit(1);
+    console.error('Database connection failed:', err.message);
   }
 };
 
