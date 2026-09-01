@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 70" width="120" height="70">
+  <!-- Ground Shadow -->
+  <ellipse cx="60" cy="63" rx="45" ry="4" fill="#000000" opacity="0.2"/>
+  <!-- Rear Wheel -->
+  <circle cx="28" cy="50" r="14" fill="#1F2937"/>
+  <circle cx="28" cy="50" r="8" fill="#9CA3AF"/>
+  <circle cx="28" cy="50" r="3" fill="#1F2937"/>
+  <!-- Front Wheel -->
+  <circle cx="92" cy="50" r="14" fill="#1F2937"/>
+  <circle cx="92" cy="50" r="8" fill="#9CA3AF"/>
+  <circle cx="92" cy="50" r="3" fill="#1F2937"/>
+  <!-- Frame & Engine -->
+  <path d="M 28 50 L 50 50 L 62 38 L 48 38 Z" fill="#374151"/>
+  <circle cx="54" cy="46" r="6" fill="#4B5563"/>
+  <!-- Body & Tank (Vibrant Orange / Dark Accent) -->
+  <path d="M 40 34 C 44 26, 60 25, 68 28 L 74 34 L 50 36 Z" fill="#EA580C"/>
+  <!-- Seat -->
+  <path d="M 34 32 C 40 32, 48 34, 52 34 L 50 37 L 32 36 Z" fill="#111827"/>
+  <!-- Front Fork & Handlebar -->
+  <line x1="92" y1="50" x2="78" y2="24" stroke="#4B5563" stroke-width="3.5" stroke-linecap="round"/>
+  <line x1="74" y1="22" x2="82" y2="22" stroke="#1F2937" stroke-width="3" stroke-linecap="round"/>
+  <!-- Headlight -->
+  <circle cx="83" cy="27" r="3.5" fill="#FBBF24"/>
+  <!-- Exhaust -->
+  <path d="M 50 50 L 22 53" stroke="#6B7280" stroke-width="2.5" stroke-linecap="round"/>
+</svg>

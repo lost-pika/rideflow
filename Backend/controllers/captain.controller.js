@@ -2,6 +2,7 @@ const captainModel = require('../models/captain.model');
 const captainService = require('../services/captain.service');
 const { validationResult } = require('express-validator');
 const blacklistTokenModel = require('../models/blacklistToken.model');
+const rideModel = require('../models/ride.model');
 
 module.exports.registerCaptain = async (req, res, next) => {
    const errors = validationResult(req);
@@ -84,7 +85,21 @@ module.exports.getCaptainProfile = async (req, res, next) => {
 
     // YA TO UPAR WALA CODE USE KARO YA NEECHE WALA
 
-    res.status(200).json({captain: req.captain});
+    try {
+        const completedRides = await rideModel.find({ captain: req.captain._id, status: 'completed' });
+        const earnings = completedRides.reduce((acc, ride) => acc + (ride.fare || 0), 0);
+        res.status(200).json({
+            captain: {
+                ...req.captain.toObject(),
+                earnings,
+                ridesCount: completedRides.length
+            },
+            earnings,
+            ridesCount: completedRides.length
+        });
+    } catch (err) {
+        next(err);
+    }
 }
 
 module.exports.logoutCaptain = async (req, res, next) => {

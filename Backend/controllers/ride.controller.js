@@ -59,20 +59,14 @@ module.exports.createRide = async (req, res) => {
       }
 
       console.log(
-        `🔍 Searching for captains near: lat=${lat}, lng=${lng}, radius=2km`
+        `🔍 Searching for captains near: lat=${lat}, lng=${lng}, vehicleType=${vehicleType}`
       );
 
-      // const captainsInRadius = await mapService.getCaptainsInTheRadius(
-      //   lat,
-      //   lng,
-      //   100
-      // );
-
-      // TO (for testing):
       const captainsInRadius = await mapService.getCaptainsInTheRadius(
         lat,
         lng,
-        10000 // 10,000 km - should definitely find the captain
+        10000,
+        vehicleType
       );
 
       console.log("📊 CAPTAIN SEARCH RESULTS:");

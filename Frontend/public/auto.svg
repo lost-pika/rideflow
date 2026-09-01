@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 70" width="120" height="70">
+  <!-- Ground Shadow -->
+  <ellipse cx="60" cy="62" rx="46" ry="4" fill="#000000" opacity="0.2"/>
+  <!-- Auto Hood / Roof (Yellow) -->
+  <path d="M 22 40 L 22 24 C 22 17, 30 14, 48 14 L 76 14 C 84 14, 88 18, 92 24 L 102 42 L 96 46 L 22 46 Z" fill="#FBBF24"/>
+  <!-- Lower Body (Green) -->
+  <path d="M 20 44 L 98 44 C 102 44, 104 48, 102 52 L 20 52 Z" fill="#15803D"/>
+  <!-- Windshield (Front) -->
+  <path d="M 82 20 L 92 38 L 82 38 Z" fill="#BFDBFE" opacity="0.85"/>
+  <!-- Side Passenger Opening -->
+  <path d="M 32 24 L 74 24 L 74 42 L 32 42 Z" fill="#1F2937" opacity="0.2"/>
+  <!-- Wheels -->
+  <!-- Front Wheel -->
+  <circle cx="94" cy="52" r="10" fill="#1F2937"/>
+  <circle cx="94" cy="52" r="5" fill="#9CA3AF"/>
+  <!-- Rear Wheel -->
+  <circle cx="34" cy="52" r="10" fill="#1F2937"/>
+  <circle cx="34" cy="52" r="5" fill="#9CA3AF"/>
+  <!-- Headlight -->
+  <circle cx="102" cy="46" r="3" fill="#FEF08A"/>
+</svg>

@@ -4,7 +4,7 @@ const captainModel = require('../models/captain.model');
 module.exports.getCoordinates = async (address) => {
   try {
     const apiKey = process.env.GEOAPIFY_API_KEY;
-    const url = `https://api.geoapify.com/v1/geocode/search?text=${encodeURIComponent(address)}&apiKey=${apiKey}`;
+    const url = `https://api.geoapify.com/v1/geocode/search?text=${encodeURIComponent(address)}&bias=countrycode:in&apiKey=${apiKey}`;
     
     const response = await axios.get(url);
 
@@ -73,7 +73,7 @@ module.exports.getDistanceTime = async (origin, destination) => {
 
     // --- Geocode origin ---
     const originRes = await axios.get("https://api.geoapify.com/v1/geocode/search", {
-      params: { text: origin, apiKey },
+      params: { text: origin, bias: "countrycode:in", apiKey },
     });
 
     if (!originRes.data?.features?.length) {
@@ -83,7 +83,7 @@ module.exports.getDistanceTime = async (origin, destination) => {
 
     // --- Geocode destination ---
     const destRes = await axios.get("https://api.geoapify.com/v1/geocode/search", {
-      params: { text: destination, apiKey },
+      params: { text: destination, bias: "countrycode:in", apiKey },
     });
 
     if (!destRes.data?.features?.length) {
@@ -141,7 +141,7 @@ module.exports.getAutoCompleteSuggestions = async (input) => {
   const apiKey = process.env.GEOAPIFY_API_KEY;
   const url = `https://api.geoapify.com/v1/geocode/autocomplete?text=${encodeURIComponent(
     input
-  )}&apiKey=${apiKey}`;
+  )}&bias=countrycode:in&apiKey=${apiKey}`;
 
   try {
     const response = await axios.get(url);
@@ -160,16 +160,27 @@ module.exports.getAutoCompleteSuggestions = async (input) => {
   }
 };
 
-module.exports.getCaptainsInTheRadius = async (lat, lng, radius) => {
-    // MongoDB expects [longitude, latitude] order for geospatial queries
-    const captains = await captainModel.find({
-        location: {
-            $geoWithin: {
-                $centerSphere: [[lng, lat], radius / 6371],  // ✅ Correct order
-            },
-        },
-    });
-    return captains;
+module.exports.getCaptainsInTheRadius = async (lat, lng, radius, vehicleType) => {
+    const query = {};
+    if (vehicleType) {
+        query["vehicle.vehicleType"] = vehicleType;
+    }
+
+    try {
+        if (typeof lat === 'number' && typeof lng === 'number') {
+            query.location = {
+                $geoWithin: {
+                    $centerSphere: [[lng, lat], radius / 6371],
+                },
+            };
+        }
+        const captains = await captainModel.find(query);
+        return captains;
+    } catch (err) {
+        console.warn("Geospatial radius search error, falling back to vehicle filter:", err.message);
+        const fallbackCaptains = await captainModel.find(vehicleType ? { "vehicle.vehicleType": vehicleType } : {});
+        return fallbackCaptains;
+    }
 };
 
 

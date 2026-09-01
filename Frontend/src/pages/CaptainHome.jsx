@@ -60,9 +60,9 @@ const CaptainHome = () => {
     );
 
     const geolocationOptions = {
-      enableHighAccuracy: true,
-      timeout: 5000,
-      maximumAge: 0,
+      enableHighAccuracy: false,
+      timeout: 10000,
+      maximumAge: 30000,
     };
 
     const updateLocation = () => {
@@ -211,25 +211,25 @@ const CaptainHome = () => {
       {/* Ride Popup */}
       <div
         ref={ridePopupPanelRef}
-        className="fixed w-full z-10 bottom-0 translate-y-full bg-white px-3 py-10 pt-12"
+        className="fixed w-full z-[1050] bottom-0 translate-y-full bg-white px-4 py-8 pt-10 shadow-2xl rounded-t-3xl max-h-[85vh] overflow-y-auto"
       >
         <RidePopUp
           ride={ride}
           setRidePopupPanel={setRidePopupPanel}
-          setConfirmRidePopupPanel={setConfirmRidePopupPanel} // ✅ ADD THIS LINE
+          setConfirmRidePopupPanel={setConfirmRidePopupPanel}
           confirmRide={confirmRide}
         />
       </div>
 
-      {/* Confirm Ride Popup */}
+      {/* Confirm Ride Popup (OTP) */}
       <div
         ref={confirmRidePopupPanelRef}
-        className="fixed w-full h-screen z-10 bottom-0 translate-y-full bg-white px-3 py-10 pt-12"
+        className="fixed w-full z-[1050] bottom-0 translate-y-full bg-white px-4 py-8 pt-10 shadow-2xl rounded-t-3xl max-h-[90vh] overflow-y-auto"
       >
         <ConfirmRidePopUp
           ride={ride}
           setConfirmRidePopupPanel={setConfirmRidePopupPanel}
-          setRidePopupPanel={setRidePopupPanel} // ✅ ADD THIS LINE
+          setRidePopupPanel={setRidePopupPanel}
         />
       </div>
 
